@@ -6,7 +6,7 @@ const PhonemeDb = {
             large : ['ㅓ', 'ㅜ'],
             medium_large : ['ㅓ', 'ㅗ'],
             medium_small : ['ㅏ', 'ㅜ'],
-            small : ['ㅏ', 'ㅗ']
+            small : ['ㅏ', 'ㅡ']
         },
         lastConsonants : ['ㅇ', 'ㅇ']
     },
@@ -28,7 +28,7 @@ const PhonemeDb = {
             medium_small : ['ㅏ', 'ㅏ'],
             small : ['ㅗ', 'ㅏ']
         },
-        lastConsonants : ['ㄹ', 'ㄹ']
+        lastConsonants : ['ㄹ', 'ㅇ']
     },
     D : {
         firstConsonants : ['ㄷ', 'ㅂ'],
@@ -36,7 +36,7 @@ const PhonemeDb = {
             large : ['ㅜ', 'ㅓ'],
             medium_large : ['ㅓ', 'ㅓ'],
             medium_small : ['ㅏ', 'ㅏ'],
-            small : ['ㅗ', 'ㅏ']
+            small : ['ㅗ', 'ㅗ']
         },
         lastConsonants : ['', 'ㄱ']
     },
@@ -88,7 +88,7 @@ const PhonemeDb = {
             medium_small : ['ㅏ', 'ㅏ'],
             small : ['ㅗ', 'ㅏ']
         },
-        lastConsonants : ['ㄹ', 'ㄹ']
+        lastConsonants : ['ㄹ', 'ㅇ']
     },
 };
 

@@ -1,14 +1,16 @@
 import { PhonemeDb } from './PhonemeDb';
 import * as Hangul from 'hangul-js';
 import React, { useEffect, useState } from 'react';
+import styles from './style.module.css';
+import ChartBar from './ChartBar';
 
 export default function PoseClassifier(props) {
     // define bound constants
     const LIGHTNESS_BOUND = 2;
-    const PACE_BOUND1 = 45;
-    const PACE_BOUND2 = 80;
-    const STEP_BOUND1 = 0.02;
-    const STEP_BOUND2 = 0.04;
+    const PACE_BOUND1 = 40;
+    const PACE_BOUND2 = 70;
+    const STEP_BOUND1 = 0.05;
+    const STEP_BOUND2 = 0.055;
     const STEP_BOUND3 = 0.06;
     const MAGNITUDE_BOUND = 400;
     const BEND_BOUND = 120;
@@ -47,8 +49,7 @@ export default function PoseClassifier(props) {
                 } else {
                     setType('C');
                 }
-    
-            } if (data['pace'] < PACE_BOUND2) {
+            } else if (data['pace'] < PACE_BOUND2) {
                 if (data['svAngleOfArm'] < MAGNITUDE_BOUND) {
                     if (data['svShoulderHeight'] < LIGHTNESS_BOUND) {
                         setType('D');
@@ -81,14 +82,39 @@ export default function PoseClassifier(props) {
                 Hangul.assemble([PhonemeDb[type]['firstConsonants'][1],
                 PhonemeDb[type]['vowels'][size][1],
                 PhonemeDb[type]['lastConsonants'][1]]);
-            setOutcome(result + result);
+            setOutcome(result + result + ' ');
         }
     }, [size, setSize, type, setType])
 
     return(
-        <div>
-            <div>{type}</div>
-            <div>{outcome}</div>
+        <div className={styles.container}>
+            <div className={styles.outcomeBox}>
+                <div className={styles.outcomeHolder}>{`그는`}</div>
+                <div className={styles.outcome}>{outcome}</div>
+                <div className={styles.outcomeHolder}>{`걷는다.`}</div>
+            </div>
+            <div className={styles.chartBox}>
+                <div className={styles.chartBarBox}>
+                    <div className={styles.barTitle}>가벼움</div>
+                    <ChartBar data={data['svShoulderHeight']} bound={LIGHTNESS_BOUND * 2} reverse={false}></ChartBar>
+                </div>
+                <div className={styles.chartBarBox}>
+                    <div className={styles.barTitle}>빠르기</div>
+                    <ChartBar data={data['pace']} bound={PACE_BOUND2 * 2} reverse={true}></ChartBar>
+                </div>
+                <div className={styles.chartBarBox}>
+                    <div className={styles.barTitle}>보폭</div>
+                    <ChartBar data={data['averageStep']} bound={STEP_BOUND3 * 2} reverse={false}></ChartBar>
+                </div>
+                <div className={styles.chartBarBox}>
+                    <div className={styles.barTitle}>적극성</div>
+                    <ChartBar data={data['svAngleOfArm']} bound={MAGNITUDE_BOUND * 2} reverse={false}></ChartBar>
+                </div>
+                <div className={styles.chartBarBox}>
+                    <div className={styles.barTitle}>굽어짐</div>
+                    <ChartBar data={data['averageAngleOfElbow']} bound={BEND_BOUND * 2} reverse={true}></ChartBar>
+                </div>
+            </div>
         </div>
     )
 }
